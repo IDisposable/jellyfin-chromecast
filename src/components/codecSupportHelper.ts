@@ -2,6 +2,11 @@ import { deviceIds } from './castDevices';
 
 const castContext = cast.framework.CastReceiverContext.getInstance();
 
+// TODO See also https://github.com/Remboooo/testmerrie-react/blob/bea9e11536659d4c35840e16e42091966413dc71/public/cast.html#L93
+// SEE ALSO:
+// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/codecs_parameter#using_the_codecs_parameter
+// https://developers.google.com/cast/docs/media
+
 /**
  * Checks if there is E-AC-3 support.
  * This check returns in line with the cast settings made in Google Home.
@@ -110,8 +115,10 @@ export function getMaxWidthSupport(deviceId: number, codec?: string): number {
     switch (deviceId) {
         case deviceIds.ULTRA:
         case deviceIds.CCGTV:
+        case deviceIds.ANDROID:
             return 3840;
-        case deviceIds.GEN1AND2:
+        case deviceIds.GEN1:
+        case deviceIds.GEN2:
         case deviceIds.GEN3:
             return 1920;
         case deviceIds.NESTHUBANDMAX:
@@ -145,10 +152,12 @@ export function getH264ProfileSupport(deviceId: number): string {
 export function getH264LevelSupport(deviceId: number): number {
     switch (deviceId) {
         case deviceIds.NESTHUBANDMAX:
-        case deviceIds.GEN1AND2:
+        case deviceIds.GEN1:
+        case deviceIds.GEN2:
             return 41;
         case deviceIds.GEN3:
         case deviceIds.ULTRA:
+        case deviceIds.ANDROID:
             return 42;
         case deviceIds.CCGTV:
             return 51;
